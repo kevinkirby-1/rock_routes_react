@@ -1,0 +1,77 @@
+@use "../../App";
+
+#route_card {
+  display: grid;
+  grid-template-columns: 50px 1fr 70px;
+  align-items: center;
+  padding-left: 8px;
+  text-decoration: none;
+  color: black;
+  background-color: App.$primary-color-light;
+  border: 1px solid App.$accent-color-dark;
+  border-radius: 20px;
+
+  &:hover {
+    span {
+      background-color: App.$accent-color-dark;
+      color: App.$primary-color-light;
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    }
+  }
+
+  span {
+    height: 50px;
+    text-align: center;
+    background-color: App.$primary-color-dark;
+    color: App.$accent-color-dark;
+    border-radius: 50%;
+    transition: background-color 0.25s, color 0.25s;
+    font-size: 30px;
+    padding-top: 20%;
+  }
+
+  div {
+    margin: 0 1rem;
+    min-width: 100px;
+    p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  #route_card {
+    grid-template-columns: 1fr;
+    padding: 0.5rem;
+
+    img {
+      grid-row: 1;
+      width: 100%;
+      aspect-ratio: 1/1;
+      justify-self: center;
+    }
+
+    p {
+      grid-row: 2;
+      margin-left: 0.5rem;
+    }
+
+    span {
+      justify-self: center;
+      width: 100%;
+      border-radius: 20px;
+      height: 35px;
+      padding-top: 2px;
+    }
+  }
+}

@@ -1,0 +1,81 @@
+@use "../../App";
+
+#route_details {
+  display: grid;
+  row-gap: 5px;
+  grid-template-columns: 1fr 70px;
+  grid-auto-rows: min-content;
+
+  a {
+    z-index: 1;
+    grid-column: 2;
+    grid-row: 3;
+    font-size: 25px;
+    background-color: App.$accent-color-dark;
+    color: App.$primary-color-light;
+    width: 70px;
+    aspect-ratio: 1/1;
+    text-align: center;
+    align-content: center;
+    border-radius: 50px;
+    transition: 0.125s;
+    position: sticky;
+    bottom: 0;
+
+    &:hover {
+      background-color: App.$primary-color-dark;
+      color: App.$accent-color-dark;
+    }
+  }
+
+  img {
+    grid-column: 1/3;
+    grid-row: 1;
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    justify-self: center;
+    border-radius: 20px;
+    padding: 5px;
+  }
+
+  #details_list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    grid-column: 1/3;
+    margin: 0 10px;
+  }
+  p {
+    display: flex;
+    background-color: App.$primary-color-light;
+    padding: 8px;
+    border-radius: 20px;
+    justify-content: space-between;
+  }
+
+  @media only screen and (min-width: 1024px) {
+    grid-template-columns: 525px 1fr;
+    grid-template-rows: 50px auto;
+    row-gap: 20px;
+    padding: 20px;
+    
+    img {
+      grid-column: 1;
+      grid-row: 1;
+      margin: 0 20px;
+      justify-self: start;
+    }
+
+    a {
+      grid-column: 1;
+      grid-row: 3;
+      margin-left: 20px;
+    }
+
+    #details_list {
+      grid-column: 2;
+      grid-row: 1/4;
+    }
+  }
+}

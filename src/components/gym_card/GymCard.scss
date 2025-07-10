@@ -1,0 +1,53 @@
+@use "../../App";
+
+#gym_card {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 50px 1fr 70px;
+  background-color: App.$primary-color-light;
+  color: black;
+  text-decoration: none;
+  border-radius: 20px;
+  border: 1px solid App.$accent-color-dark;
+  padding-left: 8px;
+
+  &:hover {
+    span {
+        background-color: App.$accent-color-dark;
+        color: App.$primary-color-light;
+    }
+  }
+
+  span {
+    height: 50px;
+    text-align: center;
+    align-content: center;
+    background-color: App.$primary-color-dark;
+    color: App.$accent-color-dark;
+    border-radius: 50%;
+    transition: background-color 0.25s, color 0.25s;
+    font-size: 30px;
+    padding-top: 6px;
+  }
+
+  div {
+    padding-left: 10px;
+  }
+
+  img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  @media only screen and (min-width: 1024px) {
+    grid-template-columns: 1fr;
+    padding: 5px;
+    align-items: start;
+
+    img {
+      grid-row: 1;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+@use "../../App.scss";
+
+form {
+  display: grid;
+  margin: 10px;
+
+  textarea {
+    resize: vertical;
+  }
+
+  label, legend {
+    display: grid;
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  select,
+  input[type="date"],
+  textarea,
+  input[type='file'],
+  fieldset {
+    padding: 10px;
+    background-color: App.$primary-color-light;
+    border-radius: 20px;
+    border: 1px solid App.$accent-color-dark;
+    outline: none;
+    margin-bottom: 10px;
+  }
+
+  .radioCheckbox {
+    display: flex;
+    gap: 5px;
+  }
+
+  button {
+    background-color: App.$accent-color-dark;
+    color: App.$primary-color-light;
+    width: fit-content;
+    justify-self: end;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+  }
+}
