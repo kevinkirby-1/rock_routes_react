@@ -68,7 +68,7 @@ export function NewRoute() {
                 name="routeProtection"
                 value="Boulder"
                 defaultChecked={
-                  editRoute ? editRoute.routeProtection === "Boulder" : false
+                  editRoute ? editRoute.protection === "Boulder" : false
                 }
               />
               Boulder
@@ -79,7 +79,7 @@ export function NewRoute() {
                 name="routeProtection"
                 value="Top Rope"
                 defaultChecked={
-                  editRoute ? editRoute.routeProtection === "Top Rope" : false
+                  editRoute ? editRoute.protection === "Top Rope" : false
                 }
               />
               Top Rope
@@ -90,7 +90,7 @@ export function NewRoute() {
                 name="routeProtection"
                 value="Lead"
                 defaultChecked={
-                  editRoute ? editRoute.routeProtection === "Lead" : false
+                  editRoute ? editRoute.protection === "Lead" : false
                 }
               />
               Lead
@@ -103,7 +103,9 @@ export function NewRoute() {
               type="date"
               name="routeDateSet"
               defaultValue={
-                editRoute ? editRoute.dateSet.toISOString().split("T")[0] : ""
+                editRoute?.dateSet
+                  ? editRoute.dateSet.toISOString().split("T")[0]
+                  : ""
               }
             />
           </label>
@@ -165,7 +167,9 @@ export function NewRoute() {
                 name="routeAttributes"
                 value="Slab"
                 defaultChecked={
-                  editRoute ? editRoute.routeAttributes.includes("Slab") : false
+                  editRoute?.attributes
+                    ? editRoute.attributes.includes("Slab")
+                    : false
                 }
               />
               Slab
@@ -176,8 +180,8 @@ export function NewRoute() {
                 name="routeAttributes"
                 value="Overhang"
                 defaultChecked={
-                  editRoute
-                    ? editRoute.routeAttributes.includes("Overhang")
+                  editRoute?.attributes
+                    ? editRoute.attributes.includes("Overhang")
                     : false
                 }
               />
@@ -189,8 +193,8 @@ export function NewRoute() {
                 name="routeAttributes"
                 value="Crack"
                 defaultChecked={
-                  editRoute
-                    ? editRoute.routeAttributes.includes("Crack")
+                  editRoute?.attributes
+                    ? editRoute.attributes.includes("Crack")
                     : false
                 }
               />
@@ -202,8 +206,8 @@ export function NewRoute() {
                 name="routeAttributes"
                 value="Traverse"
                 defaultChecked={
-                  editRoute
-                    ? editRoute.routeAttributes.includes("Traverse")
+                  editRoute?.attributes
+                    ? editRoute.attributes.includes("Traverse")
                     : false
                 }
               />
@@ -215,8 +219,8 @@ export function NewRoute() {
                 name="routeAttributes"
                 value="Chimney"
                 defaultChecked={
-                  editRoute
-                    ? editRoute.routeAttributes.includes("Chimney")
+                  editRoute?.attributes
+                    ? editRoute.attributes.includes("Chimney")
                     : false
                 }
               />
@@ -228,8 +232,8 @@ export function NewRoute() {
                 name="routeAttributes"
                 value="Corner"
                 defaultChecked={
-                  editRoute
-                    ? editRoute.routeAttributes.includes("Corner")
+                  editRoute?.attributes
+                    ? editRoute.attributes.includes("Inside Corner")
                     : false
                 }
               />
@@ -241,8 +245,8 @@ export function NewRoute() {
                 name="routeAttributes"
                 value="Arete"
                 defaultChecked={
-                  editRoute
-                    ? editRoute.routeAttributes.includes("Arete")
+                  editRoute?.attributes
+                    ? editRoute.attributes.includes("Arete")
                     : false
                 }
               />
@@ -255,7 +259,7 @@ export function NewRoute() {
               <input
                 type="checkbox"
                 name="routeIsProject"
-                defaultChecked={editRoute ? editRoute.project : false}
+                defaultChecked={editRoute ? editRoute.isProject : false}
               />
               Mark this as a project
             </label>

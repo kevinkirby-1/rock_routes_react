@@ -1,4 +1,9 @@
-export const ROUTE_PROTECTION_OPTIONS = ["Boulder", "Top Rope", "Lead"];
+export const ROUTE_PROTECTION_OPTIONS = [
+  "Boulder",
+  "Top Rope",
+  "Lead",
+  undefined,
+] as const;
 export type routeProtection = (typeof ROUTE_PROTECTION_OPTIONS)[number];
 
 export const ROUTE_HOLD_TYPE_OPTIONS = [
@@ -8,7 +13,8 @@ export const ROUTE_HOLD_TYPE_OPTIONS = [
   "Jugs",
   "Volumes",
   "Cracks",
-];
+  undefined,
+] as const;
 export type holdType = (typeof ROUTE_HOLD_TYPE_OPTIONS)[number];
 
 export const ROUTE_GRADE_OPTIONS = [
@@ -89,10 +95,10 @@ export const ROUTE_GRADE_OPTIONS = [
   "9b",
   "9b+",
   "9c",
-];
+] as const;
 export type grade = (typeof ROUTE_GRADE_OPTIONS)[number];
 
-export const ROUTE_GRADE_SYSTEM_OPTIONS = ["V", "YDS", "French"];
+export const ROUTE_GRADE_SYSTEM_OPTIONS = ["V", "YDS", "French"] as const;
 export type gradeSystem = (typeof ROUTE_GRADE_SYSTEM_OPTIONS)[number];
 
 export const HOLD_COLOR_OPTIONS = [
@@ -111,10 +117,10 @@ export const HOLD_COLOR_OPTIONS = [
   "Brown",
   "Tan",
   "Teal",
-];
+  undefined,
+] as const;
 export type holdColor = (typeof HOLD_COLOR_OPTIONS)[number];
 
-export type routeAttributes = (typeof ROUTE_ATTTIBUTE_OPTIONS)[number];
 export const ROUTE_ATTTIBUTE_OPTIONS = [
   "Slab",
   "Overhang",
@@ -123,28 +129,33 @@ export const ROUTE_ATTTIBUTE_OPTIONS = [
   "Chimney",
   "Inside Corner",
   "Arete",
-];
+  undefined,
+] as const;
+export type routeAttributes = (typeof ROUTE_ATTTIBUTE_OPTIONS)[number];
 
 export interface ClimbingRoute {
   id?: number;
   name: string;
   img?: string;
-  grade: string;
-  gradeSystem: string;
+  grade: grade;
   difficulty: number;
-  routeProtection: routeProtection;
-  holdType: holdType;
-  holdColor: holdColor;
-  project: boolean;
-  attempts: number;
-  mostRecentAttempt: Date | undefined;
-  complete: boolean;
-  dateComplete: Date | undefined;
-  setter: string;
-  dateSet: Date;
-  routeAttributes: routeAttributes[];
+  gradeSystem: gradeSystem;
+  isProject: boolean;
   gym: number;
-  notes: string;
+  protection?: routeProtection;
+  setter?: string;
+  dateSet?: Date;
+  holdType?: holdType;
+  holdColor?: holdColor;
+  attributes?: routeAttributes[];
+  notes?: string;
+  attempts: number;
+  mostRecentAttempt?: Date;
+  isComplete: boolean;
+  dateComplete?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+  user: string;
 }
 export interface JSONClimbingRoute {
   id: number;
@@ -153,33 +164,22 @@ export interface JSONClimbingRoute {
   grade: string;
   gradeSystem: string;
   difficulty: number;
+  project: boolean;
+  gym: number;
   routeProtection: string;
+  setter: string;
+  dateSet: string;
   holdType: string;
   holdColor: string;
-  project: boolean;
+  routeAttributes: string[];
+  notes: string;
   attempts: number;
   mostRecentAttempt: string;
   complete: boolean;
   dateComplete: string;
-  setter: string;
-  dateSet: string;
-  routeAttributes: string[];
-  gym: number;
-  notes: string;
-}
-
-export interface ClimbingRouteForm {
-  name: string | undefined;
-  grade: grade | undefined;
-  dateSet: Date | undefined;
-  gym: number | undefined;
-  setter: string | undefined;
-  holdType: holdType | undefined;
-  holdColor: holdColor | undefined;
-  routeProtection: routeProtection | undefined;
-  routeAttributes: routeAttributes[] | undefined;
-  project: boolean | undefined;
-  notes: string | undefined;
+  createdAt?: string;
+  updatedAt?: string;
+  user: string;
 }
 
 export interface ClimbingGym {
@@ -198,7 +198,6 @@ export type SortOption =
   | "date-complete-new";
 
 type GradeToDifficultyMap = Map<string, number>;
-
 export const gradeToDifficultyLookup: GradeToDifficultyMap = new Map([
   // YDS Grades
   ["5.4", 1],

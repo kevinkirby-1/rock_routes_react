@@ -9,7 +9,7 @@ import {
   type routeProtection,
 } from "../types";
 
-export const createSelect = (list: string[]) => {
+export const createSelect = (list: readonly any[]) => {
   const optionsList = list.map((listOption) => (
     <option value={listOption} key={listOption}>
       {listOption}
@@ -50,12 +50,12 @@ export const addRoute = (formData: FormData) => {
   let newRouteGradeSystem: gradeSystem;
   let newRouteDifficultyScore: number;
   if (typeof formRouteGrade === "string") {
-    newRouteGrade = formRouteGrade;
+    newRouteGrade = formRouteGrade as grade;
     newRouteGradeSystem = convertGradeToSystem(newRouteGrade);
     newRouteDifficultyScore = calculateDifficultyScore(newRouteGrade);
   } else {
-    newRouteGrade = "";
-    newRouteGradeSystem = "";
+    newRouteGrade = "V0";
+    newRouteGradeSystem = "V";
     newRouteDifficultyScore = 0;
   }
 
@@ -92,25 +92,25 @@ export const addRoute = (formData: FormData) => {
   const formRouteHoldType = formData.get("routeHoldType");
   let newRouteHoldType: holdType;
   if (typeof formRouteHoldType === "string") {
-    newRouteHoldType = formRouteHoldType;
+    newRouteHoldType = formRouteHoldType as holdType;
   } else {
-    newRouteHoldType = "";
+    newRouteHoldType = undefined;
   }
 
   const formRouteProtection = formData.get("routeProtection");
   let newRouteProtection: routeProtection;
   if (typeof formRouteProtection === "string") {
-    newRouteProtection = formRouteProtection;
+    newRouteProtection = formRouteProtection as routeProtection;
   } else {
-    newRouteProtection = "";
+    newRouteProtection = undefined;
   }
 
   const formRouteHoldColor = formData.get("routeHoldColor");
   let newRouteHoldColor: holdColor;
   if (typeof formRouteHoldColor === "string") {
-    newRouteHoldColor = formRouteHoldColor;
+    newRouteHoldColor = formRouteHoldColor as holdColor;
   } else {
-    newRouteHoldColor = "";
+    newRouteHoldColor = undefined;
   }
 
   const newRouteAttributes: routeAttributes[] = formData.getAll(
@@ -137,19 +137,20 @@ export const addRoute = (formData: FormData) => {
     grade: newRouteGrade,
     gradeSystem: newRouteGradeSystem,
     difficulty: newRouteDifficultyScore,
-    routeProtection: newRouteProtection,
+    protection: newRouteProtection,
     holdType: newRouteHoldType,
     holdColor: newRouteHoldColor,
-    project: newRouteIsProject,
+    isProject: newRouteIsProject,
     attempts: 0,
     mostRecentAttempt: undefined,
-    complete: false,
+    isComplete: false,
     dateComplete: undefined,
     setter: newRouteSetter,
     dateSet: newRouteDateSet,
-    routeAttributes: newRouteAttributes,
+    attributes: newRouteAttributes,
     gym: newRouteGym,
     notes: newRouteNotes,
+    user: ''
   };
 
   console.log(newClimbingRoute);
