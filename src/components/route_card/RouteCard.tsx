@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import "./RouteCard.scss";
-import type { ClimbingRoute } from "../../types";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { RiProgress4Line } from "react-icons/ri";
+import type { ClimbingRoute } from "../../types/Route";
 
 interface RouteCardProps {
   climbingRoute: ClimbingRoute;
@@ -10,23 +10,35 @@ interface RouteCardProps {
 
 export function RouteCard({ climbingRoute }: RouteCardProps) {
   return (
-    <Link id="route_card" to={`/routes/${climbingRoute.id}`}>
+    <Link id="route_card" to={`/routes/${climbingRoute._id}`}>
       <span>
-        {climbingRoute.complete ? <FaRegCheckCircle /> : <RiProgress4Line />}
+        {climbingRoute.isComplete ? <FaRegCheckCircle /> : <RiProgress4Line />}
       </span>
       <div>
         <p>
           <strong>{climbingRoute.name}</strong>
         </p>
         <p>
-          {climbingRoute.grade}({climbingRoute.difficulty}){" - "}
-          {climbingRoute.routeProtection}
+          {climbingRoute.grade}
+          {" - "}
+          {climbingRoute.protection}
           <br></br>
-          DC: {climbingRoute.dateComplete ? climbingRoute.dateComplete.toLocaleDateString('en-US') : null}
+          DC:{" "}
+          {climbingRoute.dateComplete
+            ? new Date(climbingRoute.dateComplete).toLocaleDateString("en-US")
+            : null}
           <br />
-          MRA: {climbingRoute.mostRecentAttempt ? climbingRoute.mostRecentAttempt.toLocaleDateString("en-US") : null}
+          MRA:{" "}
+          {climbingRoute.mostRecentAttempt
+            ? new Date(climbingRoute.mostRecentAttempt).toLocaleDateString(
+                "en-US"
+              )
+            : null}
           <br></br>
-          DS: {climbingRoute.dateSet.toLocaleDateString("en-US")}
+          DS:{" "}
+          {climbingRoute.dateSet
+            ? new Date(climbingRoute.dateSet).toLocaleDateString("en-US")
+            : null}
           <br />
           {climbingRoute.holdType}
         </p>

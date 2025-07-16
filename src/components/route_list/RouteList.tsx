@@ -1,7 +1,7 @@
 import "./RouteList.scss";
 import { useEffect, useMemo, useState, type ChangeEvent } from "react";
 import { RouteCard } from "../route_card/RouteCard";
-import type { ClimbingRoute, SortOption } from "../../types";
+import type { SortOption } from "../../types/types";
 import { Link } from "react-router-dom";
 import {
   TreeSelect,
@@ -9,8 +9,12 @@ import {
   type TreeSelectSelectionKeysType,
 } from "primereact/treeselect";
 import type { TreeNode } from "primereact/treenode";
-import { filterServices } from "../../utils/filter_services";
 import { FloatLabel } from "primereact/floatlabel";
+import type { ClimbingRoute } from "../../types/Route";
+import {
+  getFilterOptionsData,
+  getSelectedFilterOptions,
+} from "../../utils/filter_services";
 
 interface RouteListParams {
   climbingRoutes: ClimbingRoute[];
@@ -25,10 +29,20 @@ export function RouteList(props: RouteListParams) {
   >([]);
 
   useEffect(() => {
-    setfilterOptions(filterServices.getFilterOptionsData());
+    const getFilterOptions = async () => {
+      try {
+        const filterOptionsData = await getFilterOptionsData();
+        if (filterOptionsData) {
+          setfilterOptions(filterOptionsData);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getFilterOptions();
   }, []);
 
-  const selectedFilterOptions = filterServices.getSelectedFilterOptions(
+  const selectedFilterOptions = getSelectedFilterOptions(
     selectedFilters,
     filterOptions
   );
@@ -58,37 +72,49 @@ export function RouteList(props: RouteListParams) {
       switch (sortOption) {
         case "recent-attempt":
           tempSortedRoutes.sort((a, b) => {
-            const aRank =
-              a.mostRecentAttempt !== undefined
-                ? a.mostRecentAttempt.getTime()
-                : Infinity;
-            const bRank =
-              b.mostRecentAttempt !== undefined
-                ? b.mostRecentAttempt.getTime()
-                : Infinity;
-            return bRank - aRank;
+            if (b.mostRecentAttempt === undefined) {
+              return -1;
+            }
+            if (a.mostRecentAttempt === undefined) {
+              return 1;
+            }
+            return (
+              new Date(b.mostRecentAttempt).getTime() -
+              new Date(a.mostRecentAttempt).getTime()
+            );
           });
           break;
         case "grade-hard":
           tempSortedRoutes.sort((a, b) => b.difficulty - a.difficulty);
           break;
         case "date-set-new":
-          tempSortedRoutes.sort(
-            (a, b) => b.dateSet.getTime() - a.dateSet.getTime()
-          );
+          tempSortedRoutes.sort((a, b) => {
+            if (b.dateSet === undefined) {
+              return -1;
+            }
+            if (a.dateSet === undefined) {
+              return 1;
+            }
+            return (
+              new Date(b.dateSet).getTime() - new Date(a.dateSet).getTime()
+            );
+          });
           break;
         case "date-complete-new":
-          tempSortedRoutes = tempSortedRoutes.filter((route) => route.complete);
+          tempSortedRoutes = tempSortedRoutes.filter(
+            (route) => route.isComplete
+          );
           tempSortedRoutes.sort((a, b) => {
-            const aRank =
-              a.dateComplete !== undefined
-                ? a.dateComplete.getTime()
-                : Infinity;
-            const bRank =
-              b.dateComplete !== undefined
-                ? b.dateComplete.getTime()
-                : Infinity;
-            return bRank - aRank;
+            if (b.dateComplete === undefined) {
+              return -1;
+            }
+            if (a.dateComplete === undefined) {
+              return 1;
+            }
+            return (
+              new Date(b.dateComplete).getTime() -
+              new Date(a.dateComplete).getTime()
+            );
           });
           break;
       }
@@ -137,7 +163,7 @@ export function RouteList(props: RouteListParams) {
       </section>
 
       {sortedRoutes.map((route) => (
-        <RouteCard key={route.id} climbingRoute={route} />
+        <RouteCard key={route._id} climbingRoute={route} />
       ))}
     </div>
   );

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import type { ClimbingGym } from "../../types";
 import "../route_card/RouteCard.scss";
 import { RiBuilding3Line } from "react-icons/ri";
 import { GiMountaintop } from "react-icons/gi";
+import type { ClimbingGym } from "../../types/Gym";
 
 interface GymCardProps {
   climbingGym: ClimbingGym;
@@ -10,9 +10,9 @@ interface GymCardProps {
 
 export function GymCard({ climbingGym }: GymCardProps) {
   return (
-    <Link id="route_card" to={`/gyms/${climbingGym.id}`}>
+    <Link id="route_card" to={`/gyms/${climbingGym._id}`}>
       <span>
-        {climbingGym.indoor ? <RiBuilding3Line /> : <GiMountaintop />}
+        {climbingGym.isIndoor ? <RiBuilding3Line /> : <GiMountaintop />}
       </span>
       <div>
         <p>

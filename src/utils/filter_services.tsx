@@ -1,19 +1,23 @@
 import {
   ROUTE_GRADE_OPTIONS,
-  ROUTE_GRADE_SYSTEM_OPTIONS,
   ROUTE_HOLD_TYPE_OPTIONS,
   ROUTE_PROTECTION_OPTIONS,
-} from "../types";
-import { TEMP_CLIMBING_GYMS } from "../db/climbingGyms";
+} from "../types/types";
 import type { TreeSelectSelectionKeysType } from "primereact/treeselect";
 import type { TreeNode } from "primereact/treenode";
+import type { ClimbingGym } from "../types/Gym";
+import { getGyms } from "../services/gymServices";
 
-export const filterServices = {
-  getFilterOptionsData(): TreeNode[] {
+export const getFilterOptionsData = async () => {
+  let gyms: ClimbingGym[];
+
+  try {
+    gyms = await getGyms();
+
     const protectionOptions = arrayToTreeNode(
       ROUTE_PROTECTION_OPTIONS,
       "Protection",
-      "routeProtection",
+      "protection",
       "0"
     );
 
@@ -35,62 +39,64 @@ export const filterServices = {
       key: "3",
       label: "Gyms",
       data: "gym",
-      children: TEMP_CLIMBING_GYMS.map((gym, index) => ({
+      children: gyms.map((gym, index) => ({
         key: `3-${index}`,
         label: gym.name,
-        data: gym.id,
+        data: gym._id,
       })),
     };
 
-    const gradeSystemOptions = arrayToTreeNode(
-      ROUTE_GRADE_SYSTEM_OPTIONS,
-      "Grade System",
-      "gradeSystem",
-      "4"
-    );
+    // const gradeSystemOptions = arrayToTreeNode(
+    //   ROUTE_GRADE_SYSTEM_OPTIONS,
+    //   "Grade System",
+    //   "gradeSystem",
+    //   "4"
+    // );
 
     return [
       protectionOptions,
       holdTypeOptions,
       gradeOptions,
       gymOptions,
-      gradeSystemOptions,
+      // gradeSystemOptions,
     ];
-  },
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-  getSelectedFilterOptions(
-    selectedOptions: TreeSelectSelectionKeysType[] | null | undefined,
-    options: TreeNode[]
-  ) {
-    // make sure there is data
-    if (!selectedOptions || !options) {
-      return [];
-    } else {
-      // create set of option keys
-      const selectedKeys = new Set(Object.keys(selectedOptions));
+export const getSelectedFilterOptions = (
+  selectedOptions: TreeSelectSelectionKeysType[] | null | undefined,
+  options: TreeNode[]
+) => {
+  // make sure there is data
+  if (!selectedOptions || !options) {
+    return [];
+  } else {
+    // create set of option keys
+    const selectedKeys = new Set(Object.keys(selectedOptions));
 
-      const selectedFilterOptions: { category: string; children: string[] }[] =
-        [];
+    const selectedFilterOptions: { category: string; children: string[] }[] =
+      [];
 
-      options.forEach((option) => {
-        if (selectedKeys.has(option.key as string)) {
-          const newParentOption: { category: string; children: string[] } = {
-            category: option.data,
-            children: [],
-          };
-          if (option.children && option.children.length > 0) {
-            option.children.forEach((child) => {
-              if (selectedKeys.has(child.key as string)) {
-                newParentOption.children.push(child.data);
-              }
-            });
-          }
-          selectedFilterOptions.push(newParentOption);
+    options.forEach((option) => {
+      if (selectedKeys.has(option.key as string)) {
+        const newParentOption: { category: string; children: string[] } = {
+          category: option.data,
+          children: [],
+        };
+        if (option.children && option.children.length > 0) {
+          option.children.forEach((child) => {
+            if (selectedKeys.has(child.key as string)) {
+              newParentOption.children.push(child.data);
+            }
+          });
         }
-      });
-      return selectedFilterOptions;
-    }
-  },
+        selectedFilterOptions.push(newParentOption);
+      }
+    });
+    return selectedFilterOptions;
+  }
 };
 
 function arrayToTreeNode(
