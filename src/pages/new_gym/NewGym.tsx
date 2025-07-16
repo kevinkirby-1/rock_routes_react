@@ -33,7 +33,7 @@ export function NewGym() {
           setisLoading(false);
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     getEditGym();
@@ -63,20 +63,17 @@ export function NewGym() {
       user: currentUser?._id ? currentUser._id : "",
     };
 
-    console.log(newClimbingGym);
     try {
       let addedGym: ClimbingGym;
       if (editGym) {
         addedGym = await updateGym(id ? id : "", newClimbingGym);
-        console.log(addedGym);
       } else {
         addedGym = await createGym(newClimbingGym);
-        console.log(addedGym);
       }
 
       navigate(`/gyms/${addedGym._id}`);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

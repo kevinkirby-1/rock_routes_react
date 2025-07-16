@@ -61,7 +61,7 @@ export const getFilterOptionsData = async () => {
       // gradeSystemOptions,
     ];
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 

@@ -25,7 +25,7 @@ export default function gradeDistribution() {
         setBarChartData(data);
         setIsLoading(false);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     getBarChartData();

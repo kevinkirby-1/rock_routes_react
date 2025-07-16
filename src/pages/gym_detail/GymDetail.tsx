@@ -31,7 +31,7 @@ export function GymDetail() {
         const gym = await getGymById(id);
         setSelectedGym(gym);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     getSingleGym();
@@ -46,7 +46,7 @@ export function GymDetail() {
         });
         setGymRoutes(filteredRoutes);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     getGymRoutes();
@@ -57,12 +57,11 @@ export function GymDetail() {
       if (
         confirm("Are you sure you want to delete " + selectedGym?.name + "?")
       ) {
-        const message = await deleteGym(id);
-        console.log(message);
+        await deleteGym(id);
         navigate("/gyms");
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

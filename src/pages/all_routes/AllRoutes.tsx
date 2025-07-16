@@ -17,7 +17,7 @@ export function AllRoutes() {
         setClimbingRoutes(jsonRoutes);
       } catch (err) {
         // Getting routes failed
-        console.log(err);
+        console.error(err);
       }
     };
 

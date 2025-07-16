@@ -9,11 +9,9 @@ const GoogleAuthButton = () => {
 
   const handleCredentialResponse = async (response: any) => {
     if (response.credential) {
-      console.log("Google ID Token:", response.credential);
       try {
         // Try to send google id to backend
-        const backendResponse = await loginWithGoogle(response.credential);
-        console.log("Backend response (your JWT):", backendResponse);
+        await loginWithGoogle(response.credential);
 
         login();
         // Send user to profile page

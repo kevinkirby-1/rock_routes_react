@@ -16,7 +16,7 @@ export function GymList() {
         const gyms = await getGyms();
         setClimbingGyms(gyms as ClimbingGym[]);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     getAllGyms();

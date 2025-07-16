@@ -20,8 +20,7 @@ export function Login() {
       password,
     };
     try {
-      const userData = await loginUser(credentials);
-      console.log(userData);
+      await loginUser(credentials);
       login();
       navigate("/projects");
     } catch (err) {
@@ -29,7 +28,7 @@ export function Login() {
       if (e.message === "Invalid Email" || e.message === "Invalid Password") {
         setError(e.message);
       }
-      console.log(err);
+      console.error(err);
     }
   };
 

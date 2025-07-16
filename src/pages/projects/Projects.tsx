@@ -18,7 +18,7 @@ export function Projects() {
         );
         setProjectRoutes(filteredRoutes);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     getProjects();

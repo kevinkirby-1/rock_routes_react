@@ -43,7 +43,7 @@ export function RouteDetails() {
         const routeGym = await getGymById(route.gym);
         setSelectedRouteGym(routeGym);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     getSingleRoute();
@@ -54,12 +54,11 @@ export function RouteDetails() {
       if (
         confirm("Are you sure you want to delete " + selectedRoute?.name + "?")
       ) {
-        const message = await deleteRoute(id);
-        console.log(message);
+        await deleteRoute(id);
         navigate(-1);
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -68,7 +67,7 @@ export function RouteDetails() {
       const route = await markRouteComplete(id);
       setSelectedRoute(route);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -77,7 +76,7 @@ export function RouteDetails() {
       const route = await logAttempt(id);
       setSelectedRoute(route);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -86,7 +85,7 @@ export function RouteDetails() {
       const route = await toggleProjectStatus(id);
       setSelectedRoute(route);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

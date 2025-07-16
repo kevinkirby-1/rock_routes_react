@@ -24,13 +24,12 @@ export function Register() {
       password,
     };
     try {
-      const userData = await registerUser(user);
-      console.log(userData);
+      await registerUser(user);
 
       login();
       navigate("/projects");
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

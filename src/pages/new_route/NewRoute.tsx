@@ -57,7 +57,7 @@ export function NewRoute() {
         setGymOptions(gyms);
         setisLoading(false);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     getEditRoute();
@@ -116,15 +116,13 @@ export function NewRoute() {
           editRoute._id ? editRoute._id : "",
           newClimbingRoute
         );
-        console.log("Edited Route", addedRoute);
       } else {
         addedRoute = await createRoute(newClimbingRoute);
-        console.log(addedRoute);
       }
 
       navigate(`/routes/${addedRoute._id}`);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

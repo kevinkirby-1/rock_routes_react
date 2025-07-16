@@ -36,7 +36,7 @@ export function RouteList(props: RouteListParams) {
           setfilterOptions(filterOptionsData);
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     getFilterOptions();
