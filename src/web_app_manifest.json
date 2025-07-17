@@ -12,7 +12,8 @@
       "type": "image/png"
     }
   ],
-  "start_url": "../index.html",
+  "scope": "https://rock-routes-react.onrender.com/",
+  "start_url": "https://rock-routes-react.onrender.com/projects",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
