@@ -13,7 +13,7 @@
     }
   ],
   "scope": "https://rock-routes-react.onrender.com/",
-  "start_url": "https://rock-routes-react.onrender.com/projects",
+  "start_url": "/projects",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
