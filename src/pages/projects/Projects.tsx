@@ -1,4 +1,3 @@
-import "./Projects.scss";
 import { Header } from "../../components/layout/header/Header";
 import { RouteList } from "../../components/route_list/RouteList";
 import { useEffect, useState } from "react";
@@ -26,7 +25,7 @@ export function Projects() {
 
   return (
     <section className="app_body">
-      <Header headerText="Projects" />
+      <Header headerText="Projects" showUser={true}/>
       <Nav></Nav>
       <section className="content_body">
         <RouteList climbingRoutes={projectRoutes ? projectRoutes : []} />

@@ -130,7 +130,7 @@ export function RouteList(props: RouteListParams) {
   return (
     <div id="route_list">
       <section id="sort_filter_add">
-        <Link id="add" to={"/newRoute/new"}>
+        <Link className="button" to={"/newRoute/new"}>
           Add New
         </Link>
 

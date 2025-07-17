@@ -91,7 +91,10 @@ export function RouteDetails() {
 
   return (
     <section className="app_body">
-      <Header headerText={selectedRoute ? selectedRoute.name : ""} />
+      <Header
+        headerText={selectedRoute ? selectedRoute.name : ""}
+        showUser={true}
+      />
       <Nav></Nav>
       <section id="route_details" className="content_body">
         <Link to={`/newroute/${id}`}>

@@ -104,7 +104,7 @@ export function NewRoute() {
       notes,
       attempts: editRoute?.attempts || 0,
       mostRecentAttempt: editRoute?.mostRecentAttempt || undefined,
-      isComplete: editRoute?.isComplete ||  false,
+      isComplete: editRoute?.isComplete || false,
       dateComplete: editRoute?.dateComplete || undefined,
       user: currentUser?._id ? currentUser._id : "",
     };
@@ -132,7 +132,10 @@ export function NewRoute() {
 
   return (
     <section className="app_body">
-      <Header headerText={editRoute ? "Edit Route" : "Add Route"}></Header>
+      <Header
+        headerText={editRoute ? "Edit Route" : "Add Route"}
+        showUser={true}
+      ></Header>
       <Nav></Nav>
       <section className="content_body">
         <form action={addOrEditRoute}>

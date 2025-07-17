@@ -22,25 +22,8 @@ export function RouteCard({ climbingRoute }: RouteCardProps) {
           {climbingRoute.grade}
           {" - "}
           {climbingRoute.protection}
-          <br></br>
-          DC:{" "}
-          {climbingRoute.dateComplete
-            ? new Date(climbingRoute.dateComplete).toLocaleDateString("en-US")
-            : null}
           <br />
-          MRA:{" "}
-          {climbingRoute.mostRecentAttempt
-            ? new Date(climbingRoute.mostRecentAttempt).toLocaleDateString(
-                "en-US"
-              )
-            : null}
-          <br></br>
-          DS:{" "}
-          {climbingRoute.dateSet
-            ? new Date(climbingRoute.dateSet).toLocaleDateString("en-US")
-            : null}
-          <br />
-          {climbingRoute.holdType}
+          {climbingRoute.attempts && climbingRoute.attempts + " attempts"}
         </p>
       </div>
       <img

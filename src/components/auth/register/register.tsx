@@ -1,4 +1,4 @@
-import "./register.scss";
+import "../auth.scss";
 import { Header } from "../../layout/header/Header";
 import { registerUser } from "../../../services/authServices";
 import GoogleAuthButton from "../google/google_auth_button";
@@ -35,31 +35,39 @@ export function Register() {
 
   return (
     <section className="app_body">
-      <Header headerText="Create Account" />
+      <Header headerText="" showUser={false} />
       <section className="content_body">
-        <form action={register}>
-          <label>
-            First Name
-            <input type="text" name="first_name" required />
-          </label>
-          <label>
-            Last Name
-            <input type="text" name="last_name" required />
-          </label>
-          <label>
-            Email
-            <input type="text" name="email" required />
-          </label>
-          <label>
-            Password
-            <input type="text" name="password" required />
-          </label>
-          <button type="submit">Create Account</button>
-        </form>
-        <p>
-          Already have an account? Log in <Link to={"/login"}>here</Link>{" "}
-        </p>
-        <GoogleAuthButton />
+        <section className="auth_page">
+          <div className="auth-header">
+            <img src="/rock_routes_logo_192px.png" alt="Rock Routes Logo" />
+            <h1>Log In To Rock Routes</h1>
+          </div>
+          <form action={register}>
+            <label>
+              First Name
+              <input type="text" name="first_name" required />
+            </label>
+            <label>
+              Last Name
+              <input type="text" name="last_name" required />
+            </label>
+            <label>
+              Email
+              <input type="text" name="email" required />
+            </label>
+            <label>
+              Password
+              <input type="text" name="password" required />
+            </label>
+            <button type="submit">Create Account</button>
+          </form>
+          <p>
+            Already have an account? Log in <Link to={"/login"}>here</Link>{" "}
+          </p>
+          <div className="googleAuth">
+            <GoogleAuthButton />
+          </div>
+        </section>
       </section>
     </section>
   );

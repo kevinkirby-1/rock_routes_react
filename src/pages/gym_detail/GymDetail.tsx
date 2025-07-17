@@ -67,7 +67,10 @@ export function GymDetail() {
 
   return (
     <section className="app_body">
-      <Header headerText={selectedGym ? selectedGym.name : ""}></Header>
+      <Header
+        headerText={selectedGym ? selectedGym.name : ""}
+        showUser={true}
+      ></Header>
       <Nav></Nav>
       <section className="content_body">
         <div id="gym_details">

@@ -30,7 +30,7 @@ export function Profile() {
 
   return (
     <section className="app_body">
-      <Header headerText="Profile" />
+      <Header headerText="Profile" showUser={true} />
       <Nav></Nav>
       <section className="content_body">
         <img src={loggedInUser.picture} alt="" />

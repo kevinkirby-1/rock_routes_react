@@ -27,7 +27,7 @@ export function AllRoutes() {
   return (
     <section className="app_body">
       <Nav></Nav>
-      <Header headerText="All Routes" />
+      <Header headerText="All Routes" showUser={true}/>
       <section className="content_body">
         <RouteList climbingRoutes={climbingRoutes}></RouteList>
       </section>

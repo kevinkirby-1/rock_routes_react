@@ -1,3 +1,4 @@
+import "./GymList.scss";
 import { Link } from "react-router-dom";
 import { GymCard } from "../../components/gym_card/GymCard";
 import { Header } from "../../components/layout/header/Header";
@@ -24,10 +25,10 @@ export function GymList() {
 
   return (
     <section className="app_body">
-      <Header headerText="Gyms" />
+      <Header headerText="Gyms" showUser={true}/>
       <Nav></Nav>
       <section id="route_list" className="content_body">
-        <Link id="add" to={"/newGym/new"}>
+        <Link className="button" id="add-gym" to={"/newGym/new"}>
           Add New
         </Link>
         {climbingGyms.map((gym) => (

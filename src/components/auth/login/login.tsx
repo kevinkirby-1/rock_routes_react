@@ -1,4 +1,4 @@
-import "./login.scss";
+import "../auth.scss";
 import { Header } from "../../layout/header/Header";
 import { loginUser } from "../../../services/authServices";
 import GoogleAuthButton from "../google/google_auth_button";
@@ -34,25 +34,38 @@ export function Login() {
 
   return (
     <section className="app_body">
-      <Header headerText="Log in" />
+      <Header headerText="" showUser={false} />
       <section className="content_body">
-        <form action={handleLogin}>
-          <label>
-            Email
-            <input type="email" name="email" required />
-          </label>
-          <label>
-            Password
-            <input type="password" name="password" required />
-          </label>
-          <p id="error">{error}</p>
-          <button type="submit">Login</button>
-        </form>
-        <p>
-          Don't have an account, create account{" "}
-          <Link to={"/register"}>Here</Link>
-        </p>
-        <GoogleAuthButton />
+        <section className="auth_page">
+          <div className="auth-header">
+            <img src="/rock_routes_logo_192px.png" alt="Rock Routes Logo" />
+            <h1>Log In To Rock Routes</h1>
+          </div>
+          <form action={handleLogin}>
+            <label>
+              Email
+              <input type="email" name="email" autoComplete="email" required />
+            </label>
+            <label>
+              Password
+              <input
+                type="password"
+                name="password"
+                autoComplete="current-password"
+                required
+              />
+            </label>
+            <p id="error">{error}</p>
+            <button type="submit">Login</button>
+          </form>
+          <p>
+            Don't have an account? Create one{" "}
+            <Link to={"/register"}>Here</Link>
+          </p>
+          <div className="googleAuth">
+            <GoogleAuthButton />
+          </div>
+        </section>
       </section>
     </section>
   );

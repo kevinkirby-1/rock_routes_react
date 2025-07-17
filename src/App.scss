@@ -28,6 +28,62 @@ h3 {
   font-family: $heading-font;
 }
 
+button,
+.button {
+  background-color: $accent-color-dark;
+  color: $primary-color-light;
+  width: fit-content;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  transition: 0.125s;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+
+  &:active {
+    background-color: $primary-color-dark;
+    color: $accent-color-dark;
+  }
+}
+
+form {
+  display: grid;
+
+  textarea {
+    resize: vertical;
+  }
+
+  label,
+  legend {
+    display: grid;
+    font-weight: bold;
+  }
+
+  input,
+  select,
+  textarea,
+  fieldset {
+    padding: 10px;
+    background-color: $primary-color-light;
+    border-radius: 20px;
+    border: 1px solid $accent-color-dark;
+    outline: none;
+    margin-bottom: 10px;
+    transition: 0.25s;
+
+    &:focus,
+    &:active {
+      background-color: $primary-color-dark;
+    }
+  }
+
+  .radioCheckbox {
+    display: flex;
+    gap: 5px;
+  }
+}
+
 .app_body {
   position: absolute;
   display: grid;

@@ -83,7 +83,7 @@ export function NewGym() {
 
   return (
     <section className="app_body">
-      <Header headerText={editGym ? "Edit Gym" : "Add Gym"}></Header>
+      <Header headerText={editGym ? "Edit Gym" : "Add Gym"} showUser={true}></Header>
       <Nav></Nav>
       <section className="content_body">
         <form action={addOrEditGym}>

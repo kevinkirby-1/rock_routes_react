@@ -18,7 +18,7 @@ header {
     word-break: break-word;
   }
 
-  a {
+  a, a:active {
     background-color: App.$primary-color-light;
     color: App.$accent-color-dark;
     font-size: 30px;

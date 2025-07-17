@@ -1,1 +1,17 @@
 @use '../../App';
+#route_list {
+    #add-gym {
+        text-decoration: none;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    #route_list {
+        #add-gym {
+            grid-column: 1/-1;
+            max-width: 270px;
+        }
+    }
+}

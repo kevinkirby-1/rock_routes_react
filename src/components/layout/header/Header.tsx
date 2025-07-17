@@ -6,10 +6,11 @@ import { useEffect, useState } from "react";
 
 interface HeaderParams {
   headerText: string;
+  showUser: boolean;
 }
 
 export function Header(props: HeaderParams) {
-  const [avatar, setAvatar] = useState(<FaRegUser id="avatar_icon"/>);
+  const [avatar, setAvatar] = useState(<FaRegUser id="avatar_icon" />);
 
   useEffect(() => {
     const loggedInUser = getCurrentUser();
@@ -21,7 +22,8 @@ export function Header(props: HeaderParams) {
   return (
     <header>
       <h1>{props.headerText}</h1>
-      <Link to={"/profile"}>{avatar}</Link>
+      {props.showUser && <Link to={"/profile"}>{avatar}</Link>}
+
     </header>
   );
 }
