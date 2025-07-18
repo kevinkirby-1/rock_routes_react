@@ -35,8 +35,8 @@ export function Profile() {
       <section className="content_body">
         <div id="profile">
           <img src={loggedInUser.picture} alt="" />
-          <h1 id="name">Name: {loggedInUser.name}</h1>
-          <h1 id="email">Email: {loggedInUser.email}</h1>
+          <h1 id="name">{loggedInUser.name}</h1>
+          <p id="email">Email: {loggedInUser.email}</p>
           <hr />
           <button onClick={logout}>Log Out</button>
         </div>

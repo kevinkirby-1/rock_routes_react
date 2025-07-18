@@ -91,15 +91,15 @@
   .p-icon {
     top: 25%;
   }
+}
 
-  .p-treeselect-panel {
-    button {
-      padding: 0;
-      border-radius: 0;
-      background-color: white;
-      box-shadow: none;
-      color: grey;
-    }
+.p-treeselect-panel {
+  button {
+    padding: 0;
+    border-radius: 0;
+    background-color: white;
+    box-shadow: none;
+    color: grey;
   }
 }
 @media only screen and (min-width: 1024px) {
