@@ -20,6 +20,7 @@ export function GymDetail() {
   const navigate = useNavigate();
   const [selectedGym, setSelectedGym] = useState<ClimbingGym | undefined>();
   const [gymRoutes, setGymRoutes] = useState<ClimbingRoute[] | undefined>();
+  const [routesExist, setRoutesExist] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const { id } = useParams<GymParams>();
@@ -43,6 +44,9 @@ export function GymDetail() {
     const getGymRoutes = async () => {
       try {
         const routes = (await getRoutes()) as ClimbingRoute[];
+        if (routes) {
+          setRoutesExist(true);
+        }
         const filteredRoutes = routes.filter((route) => {
           return route.gym === selectedGym?._id;
         });
@@ -84,14 +88,21 @@ export function GymDetail() {
               <hr />
               <p>{selectedGym ? selectedGym.description : ""}</p>
             </div>
-            <div id="gym_route_list">
-              <h1>Routes at {selectedGym?.name}</h1>
-              <RouteList
-                climbingRoutes={gymRoutes ? gymRoutes : []}
-                gymListId="gymRouteList"
-                gymListCardId="gym_list_route_card"
-              />
-            </div>
+            {routesExist ? (
+              <div id="gym_route_list">
+                <h1>Routes at {selectedGym?.name}</h1>
+                <RouteList
+                  climbingRoutes={gymRoutes ? gymRoutes : []}
+                  gymListId="gymRouteList"
+                  gymListCardId="gym_list_route_card"
+                />
+              </div>
+            ) : (
+              <>
+              <hr />
+              <p id="noRoutes">No routes at this gym yet</p>
+              </>
+            )}
             <Link to={`/newgym/${id}`} className="button edit">
               <MdEdit /> Edit Gym
             </Link>

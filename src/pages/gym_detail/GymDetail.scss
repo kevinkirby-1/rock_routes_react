@@ -32,6 +32,11 @@
     background-color: rgb(175, 0, 0);
   }
 
+  #noRoutes {
+    justify-self: center;
+    margin: 10px;
+  }
+
   #gym_route_list {
     margin: 30px 0;
     border: 1px solid App.$accent-color-dark;

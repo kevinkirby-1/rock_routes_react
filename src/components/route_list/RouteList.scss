@@ -102,6 +102,11 @@
     color: grey;
   }
 }
+
+#call_to_action {
+  justify-self: center;
+  margin-top: 50px;
+}
 @media only screen and (min-width: 1024px) {
   #route_list {
     grid-template-columns: repeat(auto-fill, 270px);

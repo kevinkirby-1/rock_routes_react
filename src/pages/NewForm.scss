@@ -2,6 +2,7 @@
 
 #img-upload {
   display: grid;
+  max-width: 100%;
   grid-template-columns: auto auto;
   grid-template-rows: auto auto;
   img {
@@ -19,5 +20,16 @@
   form {
     max-width: 800px;
     margin-left: 50px;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  #img-upload {
+    grid-template-columns: auto;
+    img {
+      justify-self: right;
+      grid-column: 1;
+      grid-row: 2;
+    }
   }
 }

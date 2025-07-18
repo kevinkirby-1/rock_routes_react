@@ -27,7 +27,7 @@ export function RouteCard({ climbingRoute, gymListCardId }: RouteCardProps) {
           {" - "}
           {climbingRoute.protection}
           <br />
-          {climbingRoute.attempts && climbingRoute.attempts + " attempts"}
+          {climbingRoute.attempts + " attempts"}
         </p>
       </div>
       <img

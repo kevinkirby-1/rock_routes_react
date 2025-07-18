@@ -30,7 +30,7 @@ export function Register() {
       await registerUser(user);
 
       login();
-      navigate("/projects");
+      navigate("/gyms");
     } catch (err) {
       const e = err as Error;
       if (e.message === "User already exists") {

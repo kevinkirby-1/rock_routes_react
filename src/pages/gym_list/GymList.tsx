@@ -42,6 +42,11 @@ export function GymList() {
           ) : (
             <p>Loading...</p>
           )}
+          {climbingGyms.length <= 0 ? (
+            <p id="call_to_action">To get started add a gym!</p>
+          ) : (
+            ""
+          )}
         </div>
       </section>
     </section>

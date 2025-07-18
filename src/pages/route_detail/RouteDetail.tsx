@@ -114,9 +114,9 @@ export function RouteDetails() {
                       : "Mark as Project"}
                   </button>
 
-                  {!selectedRoute?.isComplete && selectedRoute?.attempts && (
+                  {selectedRoute?.attempts ? (
                     <button onClick={markComplete}>Mark Complete</button>
-                  )}
+                  ) : ''}
                 </div>
               )}
               {selectedRoute?.dateComplete && selectedRoute.isComplete && (

@@ -164,13 +164,17 @@ export function RouteList(props: RouteListParams) {
         </FloatLabel>
       </section>
 
-      {sortedRoutes.map((route) => (
-        <RouteCard
-          key={route._id}
-          climbingRoute={route}
-          gymListCardId={props.gymListCardId}
-        />
-      ))}
+      {sortedRoutes.length > 0 ? (
+        sortedRoutes.map((route) => (
+          <RouteCard
+            key={route._id}
+            climbingRoute={route}
+            gymListCardId={props.gymListCardId}
+          />
+        ))
+      ) : (
+        <p id="call_to_action">Add some routes!</p>
+      )}
     </div>
   );
 }
