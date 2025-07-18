@@ -46,5 +46,4 @@ const manifestForPlugIn: Partial<VitePWAOptions> = {
 
 export default defineConfig({
   plugins: [react(), VitePWA(manifestForPlugIn)],
-  server: { host: "0.0.0.0" },
 });

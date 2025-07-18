@@ -1,7 +1,8 @@
 // src/components/PrivateRoute.tsx (or RequireAuth.tsx)
-import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import React from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { logoutUser } from "../../services/authServices";
 
 interface PrivateRouteProps {
   // You can add props for specific roles/permissions if needed later
@@ -10,7 +11,7 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, logout } = useAuth();
 
   // Show a loading indicator while determining auth status
   if (isLoading) {
@@ -24,6 +25,8 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
 
   // If not authenticated, redirect to the login page
   // `replace` prop prevents adding the protected route to browser history
+  logout();
+  logoutUser();
   return <Navigate to="/login" replace />;
 };
 

@@ -6,7 +6,7 @@ import React, {
   useCallback,
   useContext,
 } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 export interface AuthContextType {
   login: () => void;
@@ -22,13 +22,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true); // Manages initial auth check
-  const navigate = useNavigate();
 
   // Memoize the logout function to prevent unnecessary re-renders
   const logout = useCallback(() => {
     setIsAuthenticated(false);
     console.log("User logged out due to token expiration or explicit logout.");
-  }, [navigate]);
+  }, [Navigate]);
 
   useEffect(() => {
     const token = localStorage.getItem("userToken");
@@ -40,7 +39,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     return () => {
       delete (window as any).authContext;
     };
-  }, [logout]);
+  }, [logout, Navigate]);
 
   const login = () => {
     setIsAuthenticated(true);
