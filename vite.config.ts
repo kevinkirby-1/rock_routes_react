@@ -26,7 +26,7 @@ const manifestForPlugIn: Partial<VitePWAOptions> = {
         src: "/rock_routes_logo_180px.png",
         sizes: "180x180",
         type: "image/png",
-        purpose: "apple touch icon",
+        purpose: "any",
       },
       {
         src: "/rock_routes_logo_maskable.png",

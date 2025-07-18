@@ -13,7 +13,7 @@ export function Data() {
     <section className="app_body">
       <Header headerText="Data" showUser={true} />
       <Nav></Nav>
-      <section className="content_body" style={{ maxWidth: "85%" }}>
+      <section className="content_body" id="data">
         <section id="graph_selection">
           <button
             onClick={() => {

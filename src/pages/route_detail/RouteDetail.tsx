@@ -160,16 +160,6 @@ export function RouteDetails() {
                   <span>{selectedRoute?.protection}</span>
                 </div>
               )}
-              {selectedRoute?.dateComplete && (
-                <div>
-                  <strong>Date Complete: </strong>
-                  <span>
-                    {new Date(selectedRoute.dateComplete).toLocaleDateString(
-                      "en-US"
-                    )}
-                  </span>
-                </div>
-              )}
               {selectedRoute?.holdColor && (
                 <div>
                   <strong>Hold Color: </strong>

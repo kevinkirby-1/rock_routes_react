@@ -57,7 +57,10 @@ export function NewGym() {
 
     const newClimbingGym: ClimbingGym = {
       name,
-      img: imageUrl || editGym?.img || "/gym_placeholder.png",
+      img:
+        imageUrl ||
+        editGym?.img ||
+        (!isIndoor ? "/crag_placeholder.png" : "/gym_placeholder.png"),
       address,
       description,
       isIndoor,

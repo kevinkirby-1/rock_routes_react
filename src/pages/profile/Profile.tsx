@@ -33,11 +33,13 @@ export function Profile() {
       <Header headerText="Profile" showUser={true} />
       <Nav></Nav>
       <section className="content_body">
-        <img src={loggedInUser.picture} alt="" />
-        <h1>Name: {loggedInUser.name}</h1>
-        <h1>Email: {loggedInUser.email}</h1>
-        <hr />
-        <button onClick={logout}>Log Out</button>
+        <div id="profile">
+          <img src={loggedInUser.picture} alt="" />
+          <h1 id="name">Name: {loggedInUser.name}</h1>
+          <h1 id="email">Email: {loggedInUser.email}</h1>
+          <hr />
+          <button onClick={logout}>Log Out</button>
+        </div>
       </section>
     </section>
   );

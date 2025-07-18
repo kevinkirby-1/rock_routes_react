@@ -4,9 +4,12 @@ import { registerUser } from "../../../services/authServices";
 import GoogleAuthButton from "../google/google_auth_button";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
+import { useState } from "react";
 
 export function Register() {
   const { login } = useAuth();
+
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
   const register = async (formData: FormData) => {
@@ -29,6 +32,10 @@ export function Register() {
       login();
       navigate("/projects");
     } catch (err) {
+      const e = err as Error;
+      if (e.message === "User already exists") {
+        setError(e.message);
+      }
       console.error(err);
     }
   };
@@ -53,12 +60,13 @@ export function Register() {
             </label>
             <label>
               Email
-              <input type="text" name="email" required />
+              <input type="email" name="email" required />
             </label>
             <label>
               Password
               <input type="text" name="password" required />
             </label>
+            <p id="error">{error}</p>
             <button type="submit">Create Account</button>
           </form>
           <p>

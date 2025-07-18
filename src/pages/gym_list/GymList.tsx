@@ -30,15 +30,19 @@ export function GymList() {
       <Header headerText="Gyms" showUser={true} />
       <Nav></Nav>
 
-      <section id="route_list" className="content_body">
-        <Link className="button" id="add-gym" to={"/newGym/new"}>
-          Add New
-        </Link>
-        {!isLoading ? (
-          climbingGyms.map((gym) => <GymCard key={gym._id} climbingGym={gym} />)
-        ) : (
+      <section className="content_body">
+        <div id="route_list">
+          <Link className="button" id="add-gym" to={"/newGym/new"}>
+            Add New
+          </Link>
+          {!isLoading ? (
+            climbingGyms.map((gym) => (
+              <GymCard key={gym._id} climbingGym={gym} />
+            ))
+          ) : (
             <p>Loading...</p>
-        )}
+          )}
+        </div>
       </section>
     </section>
   );

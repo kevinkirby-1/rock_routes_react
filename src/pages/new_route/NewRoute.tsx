@@ -76,6 +76,12 @@ export function NewRoute() {
     if (formData.get("routeIsProject")) {
       isProject = true;
     }
+    let isComplete = editRoute?.isComplete || false;
+    let dateComplete = editRoute?.dateComplete;
+    if (formData.get("markIncomplete")) {
+      isComplete = false;
+      dateComplete = undefined;
+    }
     const gym = formData.get("routeGym") as string;
     const protection = formData.get("routeProtection") as routeProtection;
     const setter = formData.get("routeSetter") as string;
@@ -104,8 +110,8 @@ export function NewRoute() {
       notes,
       attempts: editRoute?.attempts || 0,
       mostRecentAttempt: editRoute?.mostRecentAttempt || undefined,
-      isComplete: editRoute?.isComplete || false,
-      dateComplete: editRoute?.dateComplete || undefined,
+      isComplete,
+      dateComplete,
       user: currentUser?._id ? currentUser._id : "",
     };
 
@@ -361,11 +367,24 @@ export function NewRoute() {
                 <input
                   type="checkbox"
                   name="routeIsProject"
-                  defaultChecked={editRoute ? editRoute.isProject : false}
+                  defaultChecked={editRoute ? editRoute.isProject : true}
                 />
                 Mark this as a project
               </label>
             </fieldset>
+
+            {editRoute && editRoute.isComplete && (
+              <fieldset>
+                <label className="radioCheckbox">
+                  <input
+                    type="checkbox"
+                    name="markIncomplete"
+                    defaultChecked={false}
+                  />
+                  Mark Incomplete
+                </label>
+              </fieldset>
+            )}
 
             <label>
               Notes

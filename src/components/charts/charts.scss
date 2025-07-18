@@ -1,5 +1,9 @@
 @use "../../App.scss";
 
+#data {
+  max-width: 90%;
+}
+
 #graph_selection {
   display: flex;
   justify-content: space-between;
@@ -22,5 +26,8 @@
 @media only screen and (min-width: 1024px) {
   #graph_selection {
     justify-content: left;
+  }
+  #data {
+    max-width: 85%;
   }
 }
