@@ -7,6 +7,7 @@ import type { ClimbingRoute } from "../../types/Route";
 import { useEffect, useState } from "react";
 import { deleteGym, getGymById } from "../../services/gymServices";
 import { getRoutes } from "../../services/routeServices";
+import { IoMdTrash } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 import { Nav } from "../../components/layout/nav/Nav";
 
@@ -19,6 +20,7 @@ export function GymDetail() {
   const navigate = useNavigate();
   const [selectedGym, setSelectedGym] = useState<ClimbingGym | undefined>();
   const [gymRoutes, setGymRoutes] = useState<ClimbingRoute[] | undefined>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const { id } = useParams<GymParams>();
   if (!id) {
@@ -45,6 +47,7 @@ export function GymDetail() {
           return route.gym === selectedGym?._id;
         });
         setGymRoutes(filteredRoutes);
+        setIsLoading(false);
       } catch (err) {
         console.error(err);
       }
@@ -73,21 +76,32 @@ export function GymDetail() {
       ></Header>
       <Nav></Nav>
       <section className="content_body">
-        <div id="gym_details">
-          <Link to={`/newgym/${id}`} id="editButton">
-            <MdEdit />
-          </Link>
-          <div id="deatail_list">
+        {!isLoading ? (
+          <div id="gym_details">
             <img src={selectedGym ? selectedGym.img : undefined} alt="" />
-            <p>{selectedGym ? selectedGym.address : ""}</p>
-            <p>{selectedGym ? selectedGym.description : ""}</p>
+            <div id="detail_list">
+              <p id="address">{selectedGym ? selectedGym.address : ""}</p>
+              <hr />
+              <p>{selectedGym ? selectedGym.description : ""}</p>
+            </div>
+            <div id="gym_route_list">
+              <h1>Routes at {selectedGym?.name}</h1>
+              <RouteList
+                climbingRoutes={gymRoutes ? gymRoutes : []}
+                gymListId="gymRouteList"
+                gymListCardId="gym_list_route_card"
+              />
+            </div>
+            <Link to={`/newgym/${id}`} className="button edit">
+              <MdEdit /> Edit Gym
+            </Link>
+            <button onClick={deleteSingleGym} className="delete">
+              <IoMdTrash /> Delete Gym
+            </button>
           </div>
-          <div id="route_list">
-            <h1>Routes at {selectedGym?.name}</h1>
-            <RouteList climbingRoutes={gymRoutes ? gymRoutes : []} />
-          </div>
-          <button onClick={deleteSingleGym}>Delete Gym</button>
-        </div>
+        ) : (
+          <p>Loading...</p>
+        )}
       </section>
     </section>
   );

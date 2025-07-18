@@ -1,3 +1,4 @@
+import "./charts.scss";
 import { useEffect, useState } from "react";
 import {
   LineChart,
@@ -23,6 +24,7 @@ export function DifficultyOverTime() {
     useState<DifficultyOverTimeData[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [gradeSystem, setGradeSystem] = useState<gradeSystem>("V");
+  const [activeButton, setActiveButton] = useState<boolean>(false);
 
   const convertToGrade = (tickValue: number): string => {
     if (gradeSystem === "V") {
@@ -92,21 +94,36 @@ export function DifficultyOverTime() {
 
   return (
     <>
-      <button onClick={() => setGradeSystem("V")}>Boulders</button>
-      <button onClick={() => setGradeSystem("YDS")}>
-        Rope Routes
-      </button>
-      {/* <button onClick={() => setGradeSystem("French")}>French System</button> */}
-      <ResponsiveContainer width="100%" height="100%">
+      <div id="buttons">
+        <button
+          onClick={() => {
+            setGradeSystem("V");
+            setActiveButton(!activeButton);
+          }}
+          id={activeButton ? "active" : ""}
+        >
+          Boulders
+        </button>
+        <button
+          onClick={() => {
+            setGradeSystem("YDS");
+            setActiveButton(!activeButton);
+          }}
+          id={!activeButton ? "active" : ""}
+        >
+          Rope Routes
+        </button>
+        {/* <button onClick={() => setGradeSystem("French")}>French System</button> */}
+      </div>
+      <ResponsiveContainer width="100%" height="90%">
         <LineChart
           width={500}
           height={300}
           data={lineChartData}
           margin={{
             top: 5,
-            right: 30,
-            left: 20,
             bottom: 5,
+            right: 6,
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
@@ -118,16 +135,21 @@ export function DifficultyOverTime() {
             tickCount={30}
             domain={[0, "dataMax + 1"]}
             tickLine={false}
+            width={50}
           />
           <Tooltip formatter={toolTipFormat} />
           <Legend />
           <Line
             type="monotone"
             dataKey="averageDifficulty"
-            stroke="#8884d8"
-            activeDot={{ r: 8 }}
+            stroke="#6c9e2bff"
+            activeDot={{ r: 7 }}
           />
-          <Line type="monotone" dataKey="hardestDifficulty" stroke="#82ca9d" />
+          <Line
+            type="monotone"
+            dataKey="hardestDifficulty"
+            stroke="#dd4620ff"
+          />
         </LineChart>
       </ResponsiveContainer>
     </>

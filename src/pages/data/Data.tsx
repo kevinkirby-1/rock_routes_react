@@ -1,4 +1,4 @@
-import "./Data.scss";
+import "../../components/charts/charts.scss";
 import { Header } from "../../components/layout/header/Header";
 import GradeDistribution from "../../components/charts/gradeDistribution";
 import { useState } from "react";
@@ -7,24 +7,29 @@ import { Nav } from "../../components/layout/nav/Nav";
 
 export function Data() {
   const [graphToDisplay, setGraphToDisplay] = useState("gradeDistribution");
+  const [activeButton, setActiveButton] = useState<boolean>(false);
 
   return (
     <section className="app_body">
-      <Header headerText="Data" showUser={true}/>
+      <Header headerText="Data" showUser={true} />
       <Nav></Nav>
       <section className="content_body" style={{ maxWidth: "85%" }}>
         <section id="graph_selection">
           <button
             onClick={() => {
               setGraphToDisplay("gradeDistribution");
+              setActiveButton(!activeButton);
             }}
+            id={activeButton ? "active" : ""}
           >
             Grade Distribution
           </button>
           <button
             onClick={() => {
               setGraphToDisplay("difficultyOverTime");
+              setActiveButton(!activeButton);
             }}
+            id={!activeButton ? "active" : ""}
           >
             Difficulty Over Time
           </button>

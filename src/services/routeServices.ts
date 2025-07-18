@@ -143,8 +143,6 @@ export const markRouteComplete = async (id: string) => {
   }
 };
 
-
-
 export const getGradeDistributionData = async (gradeSystem: gradeSystem) => {
   try {
     // Get all routes
@@ -250,7 +248,7 @@ export const getDifficultyOverTimeData = async (gradeSystem: gradeSystem) => {
     groupedData.forEach((group) => {
       difficultyOverTimeData.push({
         date: group.date.toLocaleDateString("en-US"),
-        averageDifficulty: group.totalDifficulty / group.count,
+        averageDifficulty: Math.round(group.totalDifficulty / group.count),
         hardestDifficulty: group.maxDifficulty,
       });
     });

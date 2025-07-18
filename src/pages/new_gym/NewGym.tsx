@@ -1,3 +1,4 @@
+import "../NewForm.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCurrentUser } from "../../services/authServices";
 import type { ClimbingGym } from "../../types/Gym";
@@ -77,67 +78,70 @@ export function NewGym() {
     }
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <section className="app_body">
-      <Header headerText={editGym ? "Edit Gym" : "Add Gym"} showUser={true}></Header>
+      <Header
+        headerText={editGym ? "Edit Gym" : "Add Gym"}
+        showUser={true}
+      ></Header>
       <Nav></Nav>
       <section className="content_body">
-        <form action={addOrEditGym}>
-          <label>
-            Image
-            <ImageUploadInput
-              onImageUploadSuccess={handleImageUploadSuccess}
-              initialImageUrl={editGym?.img}
-            ></ImageUploadInput>
-          </label>
-
-          <label>
-            Gym Name
-            <input
-              type="text"
-              name="gymName"
-              placeholder="Enter Gym Name"
-              defaultValue={editGym?.name}
-            />
-          </label>
-
-          <label>
-            Address
-            <input
-              type="text"
-              name="gymAddress"
-              placeholder="Enter Gym Address"
-              defaultValue={editGym?.address}
-            />
-          </label>
-
-          <label>
-            Description
-            <textarea
-              rows={5}
-              name="gymDescription"
-              placeholder="A description of the gym"
-              defaultValue={editGym?.description}
-            ></textarea>
-          </label>
-
-          <fieldset>
-            <label className="radioCheckbox">
-              <input
-                type="checkbox"
-                name="gymIsIndoors"
-                defaultChecked={editGym ? editGym.isIndoor : true}
-              />
-              Indoor Gym
+        {!isLoading ? (
+          <form action={addOrEditGym}>
+            <label>
+              Image
+              <ImageUploadInput
+                onImageUploadSuccess={handleImageUploadSuccess}
+                initialImageUrl={editGym?.img}
+              ></ImageUploadInput>
             </label>
-          </fieldset>
 
-          <button type="submit">{editGym ? "Edit Gym" : "Add Gym"}</button>
-        </form>
+            <label>
+              Gym Name
+              <input
+                type="text"
+                name="gymName"
+                placeholder="Enter Gym Name"
+                defaultValue={editGym?.name}
+              />
+            </label>
+
+            <label>
+              Address
+              <input
+                type="text"
+                name="gymAddress"
+                placeholder="Enter Gym Address"
+                defaultValue={editGym?.address}
+              />
+            </label>
+
+            <label>
+              Description
+              <textarea
+                rows={5}
+                name="gymDescription"
+                placeholder="A description of the gym"
+                defaultValue={editGym?.description}
+              ></textarea>
+            </label>
+
+            <fieldset>
+              <label className="radioCheckbox">
+                <input
+                  type="checkbox"
+                  name="gymIsIndoors"
+                  defaultChecked={editGym ? editGym.isIndoor : true}
+                />
+                Indoor Gym
+              </label>
+            </fieldset>
+
+            <button type="submit">{editGym ? "Edit Gym" : "Add Gym"}</button>
+          </form>
+        ) : (
+          <p>Loading...</p>
+        )}
       </section>
     </section>
   );

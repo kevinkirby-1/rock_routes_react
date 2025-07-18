@@ -1,4 +1,4 @@
-import "./RouteDetail.scss";
+import "../RouteDetail.scss";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Header } from "../../components/layout/header/Header";
 import { MdEdit } from "react-icons/md";
@@ -28,6 +28,7 @@ export function RouteDetails() {
     ClimbingRoute | undefined
   >();
   const [selectedRouteGym, setSelectedRouteGym] = useState<ClimbingGym>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const { id } = useParams<RouteParams>();
 
@@ -42,6 +43,7 @@ export function RouteDetails() {
         setSelectedRoute(route);
         const routeGym = await getGymById(route.gym);
         setSelectedRouteGym(routeGym);
+        setIsLoading(false);
       } catch (err) {
         console.error(err);
       }
@@ -97,130 +99,140 @@ export function RouteDetails() {
       />
       <Nav></Nav>
       <section id="route_details" className="content_body">
-        <img src={selectedRoute?.img} alt="image of the rock climbing route" />
-        <section id="details_list">
-          {!selectedRoute?.isComplete && (
-            <div>
-              <button onClick={toggleProject} id="project_button">
-                {selectedRoute?.isProject
-                  ? "Remove From Projects"
-                  : "Mark as Project"}
-              </button>
+        {!isLoading ? (
+          <>
+            <img
+              src={selectedRoute?.img}
+              alt="image of the rock climbing route"
+            />
+            <section id="details_list">
+              {!selectedRoute?.isComplete && (
+                <div>
+                  <button onClick={toggleProject} id="project_button">
+                    {selectedRoute?.isProject
+                      ? "Remove From Projects"
+                      : "Mark as Project"}
+                  </button>
 
-              {!selectedRoute?.isComplete &&
-                selectedRoute?.attempts &&
-                selectedRoute.attempts >= 0 && (
-                  <button onClick={markComplete}>Mark Complete</button>
+                  {!selectedRoute?.isComplete && selectedRoute?.attempts && (
+                    <button onClick={markComplete}>Mark Complete</button>
+                  )}
+                </div>
+              )}
+              {selectedRoute?.dateComplete && selectedRoute.isComplete && (
+                <div>
+                  <strong>
+                    <FaRegCheckCircle /> Date Completed
+                  </strong>
+                  <span>
+                    {new Date(selectedRoute.dateComplete).toLocaleDateString(
+                      "en-US"
+                    )}
+                  </span>
+                </div>
+              )}
+              <div id="attempts">
+                <strong>Attempts: </strong>
+                {!selectedRoute?.isComplete && (
+                  <button onClick={addAttempt}>+</button>
                 )}
-            </div>
-          )}
-          {selectedRoute?.dateComplete && selectedRoute.isComplete && (
-            <div>
-              <strong>
-                <FaRegCheckCircle /> Date Completed
-              </strong>
-              <span>
-                {new Date(selectedRoute.dateComplete).toLocaleDateString(
-                  "en-US"
+                <span>{selectedRoute?.attempts}</span>
+              </div>
+              {selectedRoute?.mostRecentAttempt &&
+                !selectedRoute.isComplete && (
+                  <div>
+                    <strong>Most Recent Attempt</strong>
+                    <span>
+                      {new Date(
+                        selectedRoute.mostRecentAttempt
+                      ).toLocaleDateString("en-US")}
+                    </span>
+                  </div>
                 )}
-              </span>
-            </div>
-          )}
-          <div id="attempts">
-            <strong>Attempts: </strong>
-            {!selectedRoute?.isComplete && (
-              <button onClick={addAttempt}>+</button>
-            )}
-            <span>{selectedRoute?.attempts}</span>
-          </div>
-          {selectedRoute?.mostRecentAttempt && !selectedRoute.isComplete && (
-            <div>
-              <strong>Most Recent Attempt</strong>
-              <span>
-                {new Date(selectedRoute.mostRecentAttempt).toLocaleDateString(
-                  "en-US"
-                )}
-              </span>
-            </div>
-          )}
-          <div>
-            <strong>Grade: </strong>
-            <span>{selectedRoute?.grade}</span>
-          </div>
+              <div>
+                <strong>Grade: </strong>
+                <span>{selectedRoute?.grade}</span>
+              </div>
 
-          {selectedRoute?.protection && (
-            <div>
-              <strong>Protection: </strong>{" "}
-              <span>{selectedRoute?.protection}</span>
-            </div>
-          )}
-          {selectedRoute?.dateComplete && (
-            <div>
-              <strong>Date Complete: </strong>
-              <span>
-                {new Date(selectedRoute.dateComplete).toLocaleDateString(
-                  "en-US"
-                )}
-              </span>
-            </div>
-          )}
-          {selectedRoute?.holdColor && (
-            <div>
-              <strong>Hold Color: </strong>
-              <span>{selectedRoute?.holdColor}</span>
-            </div>
-          )}
-          {selectedRoute?.holdType && (
-            <div>
-              <strong>Hold Type: </strong>
-              <span>{selectedRoute?.holdType}</span>
-            </div>
-          )}
-          {selectedRoute?.attributes && (
-            <div id="attributes">
-              <strong>Attributes</strong>
-              <span>
-                <ul>
-                  {selectedRoute.attributes.map((attribute) => (
-                    <li>{attribute}</li>
-                  ))}
-                </ul>
-              </span>
-            </div>
-          )}
-          {selectedRouteGym?.name && (
-            <div>
-              <strong>Gym: </strong>
-              <span>{selectedRouteGym?.name}</span>
-            </div>
-          )}
-          {selectedRoute?.setter && (
-            <div>
-              <strong>Setter: </strong>
-              <span>{selectedRoute?.setter}</span>
-            </div>
-          )}
-          {selectedRoute?.dateSet && (
-            <div>
-              <strong>Date Set: </strong>
-              <span>
-                {new Date(selectedRoute.dateSet).toLocaleDateString("en-US")}
-              </span>
-            </div>
-          )}
-          {selectedRoute?.notes && (
-            <div id="notes">
-              <strong>Notes: </strong>
-              {selectedRoute?.notes}
-            </div>
-          )}
-        </section>
-        <Link to={`/newroute/${id}`} className="button edit">
-          <MdEdit /> Edit Route
-        </Link>
-        <button onClick={deleteSingleRoute} className="delete">
-          <IoMdTrash /> Delete Route
-        </button>
+              {selectedRoute?.protection && (
+                <div>
+                  <strong>Protection: </strong>{" "}
+                  <span>{selectedRoute?.protection}</span>
+                </div>
+              )}
+              {selectedRoute?.dateComplete && (
+                <div>
+                  <strong>Date Complete: </strong>
+                  <span>
+                    {new Date(selectedRoute.dateComplete).toLocaleDateString(
+                      "en-US"
+                    )}
+                  </span>
+                </div>
+              )}
+              {selectedRoute?.holdColor && (
+                <div>
+                  <strong>Hold Color: </strong>
+                  <span>{selectedRoute?.holdColor}</span>
+                </div>
+              )}
+              {selectedRoute?.holdType && (
+                <div>
+                  <strong>Hold Type: </strong>
+                  <span>{selectedRoute?.holdType}</span>
+                </div>
+              )}
+              {selectedRoute?.attributes && (
+                <div id="attributes">
+                  <strong>Attributes</strong>
+                  <span>
+                    <ul>
+                      {selectedRoute.attributes.map((attribute) => (
+                        <li>{attribute}</li>
+                      ))}
+                    </ul>
+                  </span>
+                </div>
+              )}
+              {selectedRouteGym?.name && (
+                <div>
+                  <strong>Gym: </strong>
+                  <span>{selectedRouteGym?.name}</span>
+                </div>
+              )}
+              {selectedRoute?.setter && (
+                <div>
+                  <strong>Setter: </strong>
+                  <span>{selectedRoute?.setter}</span>
+                </div>
+              )}
+              {selectedRoute?.dateSet && (
+                <div>
+                  <strong>Date Set: </strong>
+                  <span>
+                    {new Date(selectedRoute.dateSet).toLocaleDateString(
+                      "en-US"
+                    )}
+                  </span>
+                </div>
+              )}
+              {selectedRoute?.notes && (
+                <div id="notes">
+                  <strong>Notes: </strong>
+                  {selectedRoute?.notes}
+                </div>
+              )}
+            </section>
+            <Link to={`/newroute/${id}`} className="button edit">
+              <MdEdit /> Edit Route
+            </Link>
+            <button onClick={deleteSingleRoute} className="delete">
+              <IoMdTrash /> Delete Route
+            </button>
+          </>
+        ) : (
+          <p>Loading...</p>
+        )}
       </section>
     </section>
   );

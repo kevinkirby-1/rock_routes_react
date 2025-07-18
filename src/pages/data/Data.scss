@@ -1,4 +1,6 @@
 @use "../../App.scss";
-#content_body {
-  width: 90%;
+
+#graph_selection {
+  display: flex;
+  justify-content: center;
 }

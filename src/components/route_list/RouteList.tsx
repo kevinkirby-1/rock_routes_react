@@ -18,6 +18,8 @@ import {
 
 interface RouteListParams {
   climbingRoutes: ClimbingRoute[];
+  gymListId?: string;
+  gymListCardId?: string;
 }
 
 export function RouteList(props: RouteListParams) {
@@ -128,7 +130,7 @@ export function RouteList(props: RouteListParams) {
   };
 
   return (
-    <div id="route_list">
+    <div id={props.gymListId ? props.gymListId : "route_list"}>
       <section id="sort_filter_add">
         <Link className="button" to={"/newRoute/new"}>
           Add New
@@ -163,7 +165,11 @@ export function RouteList(props: RouteListParams) {
       </section>
 
       {sortedRoutes.map((route) => (
-        <RouteCard key={route._id} climbingRoute={route} />
+        <RouteCard
+          key={route._id}
+          climbingRoute={route}
+          gymListCardId={props.gymListCardId}
+        />
       ))}
     </div>
   );

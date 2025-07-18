@@ -1,6 +1,6 @@
 @use "../../App";
 
-#route_card {
+#route_card, #gym_list_route_card {
   display: grid;
   grid-template-columns: 50px 1fr 70px;
   align-items: center;

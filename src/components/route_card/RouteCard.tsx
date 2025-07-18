@@ -6,11 +6,15 @@ import type { ClimbingRoute } from "../../types/Route";
 
 interface RouteCardProps {
   climbingRoute: ClimbingRoute;
+  gymListCardId?: string;
 }
 
-export function RouteCard({ climbingRoute }: RouteCardProps) {
+export function RouteCard({ climbingRoute, gymListCardId }: RouteCardProps) {
   return (
-    <Link id="route_card" to={`/routes/${climbingRoute._id}`}>
+    <Link
+      id={gymListCardId ? gymListCardId : "route_card"}
+      to={`/routes/${climbingRoute._id}`}
+    >
       <span>
         {climbingRoute.isComplete ? <FaRegCheckCircle /> : <RiProgress4Line />}
       </span>

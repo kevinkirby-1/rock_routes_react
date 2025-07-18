@@ -7,6 +7,7 @@ import { Nav } from "../../components/layout/nav/Nav";
 
 export function Projects() {
   const [projectRoutes, setProjectRoutes] = useState<ClimbingRoute[]>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const getProjects = async () => {
@@ -16,6 +17,7 @@ export function Projects() {
           (route) => route.isProject === true
         );
         setProjectRoutes(filteredRoutes);
+        setIsLoading(false);
       } catch (err) {
         console.error(err);
       }
@@ -25,10 +27,15 @@ export function Projects() {
 
   return (
     <section className="app_body">
-      <Header headerText="Projects" showUser={true}/>
+      <Header headerText="Projects" showUser={true} />
       <Nav></Nav>
+
       <section className="content_body">
-        <RouteList climbingRoutes={projectRoutes ? projectRoutes : []} />
+        {!isLoading ? (
+          <RouteList climbingRoutes={projectRoutes ? projectRoutes : []} />
+        ) : (
+          <p>Loading...</p>
+        )}
       </section>
     </section>
   );

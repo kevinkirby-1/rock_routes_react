@@ -8,6 +8,7 @@ import { Nav } from "../../components/layout/nav/Nav";
 
 export function AllRoutes() {
   const [climbingRoutes, setClimbingRoutes] = useState<ClimbingRoute[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const getRoutesFromDb = async () => {
@@ -15,6 +16,7 @@ export function AllRoutes() {
         // Get routes from db
         const jsonRoutes = await getRoutes();
         setClimbingRoutes(jsonRoutes);
+        setIsLoading(false);
       } catch (err) {
         // Getting routes failed
         console.error(err);
@@ -27,9 +29,13 @@ export function AllRoutes() {
   return (
     <section className="app_body">
       <Nav></Nav>
-      <Header headerText="All Routes" showUser={true}/>
+      <Header headerText="All Routes" showUser={true} />
       <section className="content_body">
-        <RouteList climbingRoutes={climbingRoutes}></RouteList>
+        {!isLoading ? (
+          <RouteList climbingRoutes={climbingRoutes}></RouteList>
+        ) : (
+          <p>Loading...</p>
+        )}
       </section>
     </section>
   );

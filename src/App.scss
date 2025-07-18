@@ -48,7 +48,8 @@ button,
 }
 
 form {
-  display: grid;
+  display: flex;
+  flex-direction: column;
 
   textarea {
     resize: vertical;

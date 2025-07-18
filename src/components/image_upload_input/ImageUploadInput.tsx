@@ -1,4 +1,4 @@
-// src/components/ImageUploadInput.tsx
+import "../../pages/NewForm.scss";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -77,7 +77,7 @@ const ImageUploadInput: React.FC<ImageUploadInputProps> = ({
   };
 
   return (
-    <div>
+    <div id="img-upload">
       <input
         type="file"
         accept="image/*"
@@ -86,17 +86,15 @@ const ImageUploadInput: React.FC<ImageUploadInputProps> = ({
         capture="environment"
       />
       {previewUrl && (
-        <div style={{ marginTop: "10px" }}>
-          <img
-            src={previewUrl}
-            alt="Image Preview"
-            style={{
-              maxWidth: "200px",
-              maxHeight: "200px",
-              border: "1px solid #ccc",
-            }}
-          />
-        </div>
+        <img
+          src={previewUrl}
+          alt="Image Preview"
+          style={{
+            maxWidth: "200px",
+            maxHeight: "200px",
+            border: "1px solid #ccc",
+          }}
+        />
       )}
       {isUploading && <p>Uploading image... Please wait.</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}

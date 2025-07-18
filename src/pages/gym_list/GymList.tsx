@@ -9,6 +9,7 @@ import { Nav } from "../../components/layout/nav/Nav";
 
 export function GymList() {
   const [climbingGyms, setClimbingGyms] = useState<ClimbingGym[]>([]);
+  const [isLoading, setIsloading] = useState<boolean>(true);
 
   useEffect(() => {
     const getAllGyms = async () => {
@@ -16,6 +17,7 @@ export function GymList() {
         // Get all gyms from db
         const gyms = await getGyms();
         setClimbingGyms(gyms as ClimbingGym[]);
+        setIsloading(false);
       } catch (err) {
         console.error(err);
       }
@@ -25,15 +27,18 @@ export function GymList() {
 
   return (
     <section className="app_body">
-      <Header headerText="Gyms" showUser={true}/>
+      <Header headerText="Gyms" showUser={true} />
       <Nav></Nav>
+
       <section id="route_list" className="content_body">
         <Link className="button" id="add-gym" to={"/newGym/new"}>
           Add New
         </Link>
-        {climbingGyms.map((gym) => (
-          <GymCard key={gym._id} climbingGym={gym} />
-        ))}
+        {!isLoading ? (
+          climbingGyms.map((gym) => <GymCard key={gym._id} climbingGym={gym} />)
+        ) : (
+            <p>Loading...</p>
+        )}
       </section>
     </section>
   );

@@ -1,3 +1,4 @@
+import "./charts.scss";
 import { useEffect, useState } from "react";
 import {
   BarChart,
@@ -17,6 +18,7 @@ export default function gradeDistribution() {
   const [barChartData, setBarChartData] = useState<GradeDistributionData[]>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [gradeSystem, setGradeSystem] = useState<gradeSystem>("V");
+  const [activeButton, setActiveButton] = useState<boolean>(false);
 
   useEffect(() => {
     const getBarChartData = async () => {
@@ -29,7 +31,7 @@ export default function gradeDistribution() {
       }
     };
     getBarChartData();
-  }, [gradeSystem]);
+  }, [gradeSystem, activeButton]);
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -37,12 +39,28 @@ export default function gradeDistribution() {
 
   return (
     <>
-      <button onClick={() => setGradeSystem("V")}>Boulders</button>
-      <button onClick={() => setGradeSystem("YDS")}>
-        Rope Routes
-      </button>
-      {/* <button onClick={() => setGradeSystem("French")}>French System</button> */}
-      <ResponsiveContainer width="100%" height="100%">
+      <div id="buttons">
+        <button
+          onClick={() => {
+            setGradeSystem("V");
+            setActiveButton(!activeButton);
+          }}
+          id={activeButton ? "active" : ""}
+        >
+          Boulders
+        </button>
+        <button
+          onClick={() => {
+            setGradeSystem("YDS");
+            setActiveButton(!activeButton);
+          }}
+          id={!activeButton ? "active" : ""}
+        >
+          Rope Routes
+        </button>
+        {/* <button onClick={() => setGradeSystem("French")}>French System</button> */}
+      </div>
+      <ResponsiveContainer width="100%" height="90%">
         <BarChart
           width={500}
           height={300}
@@ -61,14 +79,14 @@ export default function gradeDistribution() {
           <Legend />
           <Bar
             dataKey="attempted"
-            name="Routes Attempted"
-            fill="#715b64"
+            name="Attempted"
+            fill="#b3a696ff"
             activeBar={<Rectangle fill="#a79286ff" stroke="#dd6926ff" />}
           />
           <Bar
             dataKey="complete"
-            name="Routes Completed"
-            fill="#6aa51dff"
+            name="Completed"
+            fill="#527425ff"
             activeBar={<Rectangle fill="#6aa51dff" stroke="#90f808ff" />}
           />
         </BarChart>
