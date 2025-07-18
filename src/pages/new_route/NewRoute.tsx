@@ -157,12 +157,17 @@ export function NewRoute() {
                 name="routeName"
                 placeholder="Enter Route Name"
                 defaultValue={editRoute?.name}
+                required
               />
             </label>
 
             <label>
               Grade
-              <select name="routeGrade" defaultValue={editRoute?.grade}>
+              <select
+                name="routeGrade"
+                defaultValue={editRoute?.grade}
+                required
+              >
                 <option>Select Grade</option>
                 {createSelect(ROUTE_GRADE_OPTIONS)}
               </select>
@@ -223,6 +228,7 @@ export function NewRoute() {
               <select
                 name="routeGym"
                 defaultValue={editRoute ? editRoute.gym : ""}
+                required
               >
                 <option>Select Gym</option>
                 {gymOptions?.map((gym) => (

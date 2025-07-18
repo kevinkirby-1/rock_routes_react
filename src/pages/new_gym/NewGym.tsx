@@ -106,6 +106,7 @@ export function NewGym() {
                 name="gymName"
                 placeholder="Enter Gym Name"
                 defaultValue={editGym?.name}
+                required
               />
             </label>
 
