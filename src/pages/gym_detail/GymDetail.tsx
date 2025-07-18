@@ -44,7 +44,7 @@ export function GymDetail() {
     const getGymRoutes = async () => {
       try {
         const routes = (await getRoutes()) as ClimbingRoute[];
-        if (routes) {
+        if (routes.length > 0) {
           setRoutesExist(true);
         }
         const filteredRoutes = routes.filter((route) => {
@@ -99,8 +99,8 @@ export function GymDetail() {
               </div>
             ) : (
               <>
-              <hr />
-              <p id="noRoutes">No routes at this gym yet</p>
+                <hr />
+                <p id="noRoutes">No routes at this gym yet</p>
               </>
             )}
             <Link to={`/newgym/${id}`} className="button edit">
