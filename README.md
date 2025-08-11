@@ -1,4 +1,4 @@
-# Rock Routes 🧗‍♀️
+# Rock Routes (Frontend) 🧗‍♀️
 
 ### A full-stack Progressive Web Application for rock climbers to track and visualize their progress.
 
