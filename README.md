@@ -14,6 +14,11 @@ Rock Routes is a web application built to address a common need in the climbing 
 
 ***
 
+## Screenshots
+
+![Screenshots of Rock Routes](/public/demo_grid.png)
+***
+
 ## Technical Stack
 
 This project was developed as a full-stack application using a modern and robust technology stack.
